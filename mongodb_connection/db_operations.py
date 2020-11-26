@@ -12,11 +12,13 @@ def get_last_n_days(days, czujnik):
     return records
 
 def get_value_for_sensor_for_last_days(days, czujnik):
-    data = []
-    value = []
+    array = []
     records = get_last_n_days(days, czujnik)
     for x in records:
-        print (x)
+        dic = {x['data'] : x['wartosc']}
+        array.append(dict(dic))
+    return array
+    
 
 def check_password():
     collection = create_connection_to_database()

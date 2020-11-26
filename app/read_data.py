@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from datetime import datetime, timedelta
 
-def read_data_from_db(czujnik, komunikat):
+def read_data_from_db(czujnik):
     clinet = MongoClient()
     db = clinet.pomiary
     collection = db.czujniki_dane
@@ -19,10 +19,10 @@ def read_data_from_db(czujnik, komunikat):
         diff = (d2 - d1).total_seconds()
         if (diff > 10):
             last_record = tab[-1]["wartosc"]
-            return "Czujnik {} nie jest podłaczony, ostatni pomiar {}".format(komunikat, last_record)
+            return "0 {}".format(last_record)
         else:
             last_record = tab[-1]["wartosc"] 
-            return last_record
+            return "1 {}".format(last_record)
     else:
         return 0
 

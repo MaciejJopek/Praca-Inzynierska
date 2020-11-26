@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>SmartHome</title>
+    </head>
+    <body>
+
+        {% if status_temperatury == 0 %}
+        <h1>Czujnik temperatury nie jest podłaczony, ostatni pomiar {{temperature}} stopni</h1>
+        {% endif %}
+
+        {% if status_temperatury == 1 %}
+        <h1>Czujnik temperatury podłaczony, Temperatura {{temperature}} stopni</h1>
+        {% endif %}
+
+    </body>
+</html>
