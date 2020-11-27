@@ -7,7 +7,6 @@ import threading
 
 class data_operations():
     def czujnik_alarmowy(self, data, main_password):
-        print (data)
         if "zalanie" in data:
             send_email(main_password)
 
