@@ -14,6 +14,7 @@ def dashboard():
     temperature = read_data_from_db("temperatura")
     status_temperatury = int(temperature.split()[0])
     wartosc_temperatury = temperature.split()[1]
-    return render_template('index.html', temperature = wartosc_temperatury, status_temperatury = status_temperatury )
+    return render_template('index.html', temperature = wartosc_temperatury, status_temperatury = status_temperatury, x_temperature = x_temperature, y_temperature = y_temperature )
+
 
 
