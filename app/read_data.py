@@ -24,7 +24,7 @@ def read_data_from_db(czujnik):
             last_record = tab[-1]["wartosc"] 
             return "1 {}".format(last_record)
     else:
-        return 0
+        return "-1 brak_danych"
 
 
 

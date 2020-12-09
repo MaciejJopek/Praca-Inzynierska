@@ -24,11 +24,13 @@ class data_operations():
 
     def temp_hum_data_processing(self, data):
         wilgotnosc = data[10:12] 
-        temperatura = data [-2:]
-        self.add_wilgotnosc_and_temp_to_db(wilgotnosc, temperatura)
+        temperatura = data [23:25]
+        pyl = data[28:]
+
+        self.add_wilgotnosc_and_temp_to_db(wilgotnosc, temperatura, pyl)
 
 
-    def add_wilgotnosc_and_temp_to_db(self, wilgotnosc, temperatura):
+    def add_wilgotnosc_and_temp_to_db(self, wilgotnosc, temperatura, pyl):
         collection = create_connection_to_database()
         collection = collection.connect_to_db()
         czas = datetime.datetime.now()
@@ -43,7 +45,12 @@ class data_operations():
             'wartosc': int(wilgotnosc),
             'czujnik': 'wilgotnosc'
         }
-        result = collection.insert_many([dane_model_temperatura, dane_model_wilgotnosc])
+        dane_model_pyl = {
+            'data': czas,
+            'wartosc': float(pyl),
+            'czujnik': 'pyl'
+        }
+        result = collection.insert_many([dane_model_temperatura, dane_model_wilgotnosc, dane_model_pyl])
 
 
     def gaz_data_processing(self, data):
