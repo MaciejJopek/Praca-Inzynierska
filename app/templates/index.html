@@ -1,40 +1,144 @@
 <html>
     <head>
-        <title>SmartHome</title>
+        <title>Monitoring</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        <style>
+             .dotgood {
+              height: 16px;
+              width: 15px;
+              background-color: #4afc03;
+              border-radius: 50%;
+              display: inline-block;
+            }
+            .dotbad {
+              height: 16px;
+              width: 15px;
+              background-color: #fc0303;
+              border-radius: 50%;
+              display: inline-block;
+            }
+            .row {
+            display: flex;
+            }
+
+            .col {
+            flex: 1;
+            }
+            </style>
     </head>
     <body>
-        <h1>Oświetlenie</h1>
-        <p>W tym miejscu bedzie można wlaczac wylaczac swiatło</p>
-        {% if status_temperatury == 0 %}
-        <h1>Czujnik temperatury nie jest podłaczony, ostatni pomiar {{temperature}} stopni</h1>
-        {% endif %}
+        <div style="text-align: center;">
+        <h1 style="margin-left: auto; margin-right: auto;">Monitoring laboratorium</h1>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col">
+                    <div style="margin: auto; width: 50%;">
+                        <h1>Aktualny odczyt z czujników</h1>
+                        {% if status_temperatury == 0 %}
+                        <!-- <span style="display:inline-block;" class="dotbad"></span> -->
+                        <p>Czujnik temperatury, ostatni pomiar {{temperature}} stopni</p>
+                        {% endif %}
 
-        {% if status_temperatury == 1 %}
-        <h1>Czujnik temperatury podłaczony, temperatura {{temperature}} stopni</h1>
-        {% endif %}
+                        {% if status_temperatury == 1 %}
+                        <p>Czujnik Temperatury</p>
+                        <p">Pomiar  {{temperature}} °C</p>
+                        {% endif %}
 
-        {% if status_wilgotnosci == 0 %}
-        <h1>Czujnik wilgotności nie jest podłaczony, ostatni pomiar {{watosc_wilgotnosci}} stopni</h1>
-        {% endif %}
+                        {% if status_wilgotnosci == 0 %}
+                        <p>Czujnik wilgotności, ostatni pomiar {{watosc_wilgotnosci}}%</p>
+                        {% endif %}
 
-        {% if status_wilgotnosci == 1 %}
-        <h1>Czujnik temperatury podłaczony, wilgotność {{watosc_wilgotnosci}}%</h1>
-        {% endif %}
+                        {% if status_wilgotnosci == 1 %}
+                        <p>Czujnik wilgotności podłaczony, wilgotność {{watosc_wilgotnosci}}%</p>
+                        {% endif %}
 
-        {% if status_czystosc == 1 %}
-        <h1>Czujnik zanieczyszczenia powietrza podłaczony, wartość {{wartosc_czystosc}}μg/m3</h1>
-        {% endif %}
-        
-        {% if status_czystosc == 0 %}
-        <h1>Czujnik zanieczyszczenia powietrza nie podłaczony, ostatni pomiar {{wartosc_czystosc}}μg/m3</h1>
-        {% endif %}
-        
-        {% if status_wykresu_temoeratury == 1 %}
-        <canvas id="myChart" width="500" height="300"></canvas>
-        {% endif %}
-        <canvas id="myChart2" width="500" height="300"></canvas>
-        <canvas id="myChart3" width="500" height="300"></canvas>
+                        {% if status_czystosc == 1 %}
+                        <p>Czujnik zanieczyszczenia powietrza, wartość {{wartosc_czystosc}}μg/m3</p>
+                        {% endif %}
+                        
+                        {% if status_czystosc == 0 %}
+                        <p>Czujnik zanieczyszczenia powietrza, ostatni pomiar {{wartosc_czystosc}}μg/m3</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div style="margin: auto; width: 50%;">
+                        <h1>Sterowanie oświetleniem</h1>
+                        <p>lampa1</p>
+                        <p>lampa1</p>
+                        <p>lampa1</p>
+                        <p>lampa1</p>
+                        <p>Włącz wyłącz wszystkie</p>
+                        <button type="button" class="btn btn-success">Success</button>
+                    </div>
+                </div>
+                <div class="col"">
+                    <div style="margin: auto; width: 50%; ">
+                        <h1>Status czujników</h1>
+                        <div>
+                        {% if status_temperatury == 0 %}
+                            <div>
+                            <span class="dotbad"></span>
+                            <p style="display:inline-block;">Czujnik temperatury odłączony</p>
+                            </div>
+                        {% endif %}
+
+                        {% if status_temperatury == 1 %}
+                        <div>
+                        <span class="dotgood"></span>
+                        <p style="display:inline-block;">Czujnik temperatury podłaczony</p>
+                        </div>
+                        {% endif %}
+
+                        {% if status_wilgotnosci == 0 %}
+                        <div>
+                            <span class="dotbad"></span>
+                            <p style="display:inline-block;">Czujnik wilgotności odłączony</p>
+                            </div>
+                        {% endif %}
+
+                        
+                        {% if status_wilgotnosci == 1 %}
+                        <div>
+                            <span class="dotgood"></span>
+                            <p style="display:inline-block;">Czujnik wilgotności podłaczony</p>
+                            </div>
+                        {% endif %}
+
+                        {% if status_czystosc == 0 %}
+                        <div>
+                            <span class="dotbad"></span>
+                            <p style="display:inline-block;">Czujnik czystosci powietrza odłączony</p>
+                            </div>
+                        {% endif %}
+                        
+                        {% if status_czystosc == 1 %}        
+                        <div>
+                            <span class="dotgood"></span>
+                            <p style="display:inline-block;">Czujnik czystosci powietrza podłaczony</p>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <div  style="margin: auto; width: 50%;">
+            {% if status_wykresu_temoeratury == 1 %}
+            <canvas id="myChart" width="500" height="300" style="display:inline-block;"></canvas>
+            {% endif %}
+            {% if status_wykresu_temoeratury == 1 %}
+            <canvas id="myChart2" width="500" height="300" style="display:inline-block;" ></canvas>
+            {% endif %}
+            {% if status_wykresu_temoeratury == 1 %}
+            <canvas id="myChart3" width="500" height="300" ></canvas>
+            {% endif %}
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>
 <script>
@@ -77,85 +181,82 @@
     }
     });
 
-// Chart.defaults.global.responsive = false;
 
-// var chartData = {
-// labels : [{% for item in x_wilgotnosc %}
-//         "{{item}}",
-//         {% endfor %}],
-// datasets : [{
-// label: '{{ legend }}',
-// fill: true,
-// lineTension: 0.1,
-// backgroundColor: "rgba(75,192,192,0.4)",
-// borderColor: "rgba(75,192,192,1)",
-// borderCapStyle: 'butt',
-// borderDash: [],
-// borderDashOffset: 0.0,
-// borderJoinStyle: 'miter',
-// pointBorderColor: "rgba(75,192,192,1)",
-// pointBackgroundColor: "#fff",
-// pointBorderWidth: 1,
-// pointHoverRadius: 5,
-// pointHoverBackgroundColor: "rgba(75,192,192,1)",
-// pointHoverBorderColor: "rgba(220,220,220,1)",
-// pointHoverBorderWidth: 2,
-// pointRadius: 1,
-// pointHitRadius: 10,
-// data : [{% for item in y_wilgotnosc %}
-//             {{item}},
-//         {% endfor %}],
-// spanGaps: false
-// }]
-// }
+    Chart.defaults.global.responsive = false;
+    Chart.defaults.global.legend.display = false;
+    var TempChart = {
+    labels : [{% for item in x_wilgotnosc %}
+                "{{item}}",
+                {% endfor %}],       
+    datasets : [{
+        fill: true,
+        borderColor: 'rgb(215, 245, 66)',
+        pointRadius: 0,
+        fill: false,
+        borderWidth: 4,
 
-// // get chart canvas
-// var ctx = document.getElementById("myChart2").getContext("2d");
+        data : [{% for item in y_wilgotnosc %}
+                    {{item}},
+                {% endfor %}],
+    }]
+    }
+    var ctx = document.getElementById("myChart2").getContext("2d");
+    var myChart = new Chart(ctx, {
+    type: 'line',
+    data: TempChart,
+    options: {
 
-// // create the chart using the chart canvas
-// var myChart = new Chart(ctx, {
-// type: 'line',
-// data: chartData,
-// });
+        title:{
+            text: "Wykres wylgotności od czasu",
+            display: true,
+        },
+        scales: {
+            yAxes: [{
+                scaleLabel: {
+                display: true,
+                labelString: 'Wilgotność [%]',
+      }
+            }]
+        }
+    }
+    });
 
-// Chart.defaults.global.responsive = false;
+    Chart.defaults.global.responsive = false;
+    Chart.defaults.global.legend.display = false;
+    var TempChart = {
+    labels : [{% for item in x_czystosc %}
+                "{{item}}",
+                {% endfor %}],       
+    datasets : [{
+        fill: true,
+        borderColor: 'rgb(215, 245, 66)',
+        pointRadius: 0,
+        fill: false,
+        borderWidth: 4,
 
-// var chartData = {
-// labels : [{% for item in x_czystosc %}
-// "{{item}}",
-// {% endfor %}],
-// datasets : [{
-// label: '{{ legend }}',
-// fill: true,
-// lineTension: 0.1,
-// backgroundColor: "rgba(75,192,192,0.4)",
-// borderColor: "rgba(75,192,192,1)",
-// borderCapStyle: 'butt',
-// borderDash: [],
-// borderDashOffset: 0.0,
-// borderJoinStyle: 'miter',
-// pointBorderColor: "rgba(75,192,192,1)",
-// pointBackgroundColor: "#fff",
-// pointBorderWidth: 1,
-// pointHoverRadius: 5,
-// pointHoverBackgroundColor: "rgba(75,192,192,1)",
-// pointHoverBorderColor: "rgba(220,220,220,1)",
-// pointHoverBorderWidth: 2,
-// pointRadius: 1,
-// pointHitRadius: 10,
-// data : [{% for item in y_czystosc %}
-//     {{item}},
-// {% endfor %}],
-// spanGaps: false
-// }]
-// }
+        data : [{% for item in y_czystosc %}
+                    {{item}},
+                {% endfor %}],
+    }]
+    }
+    var ctx = document.getElementById("myChart3").getContext("2d");
+    var myChart = new Chart(ctx, {
+    type: 'line',
+    data: TempChart,
+    options: {
 
-// // get chart canvas
-// var ctx = document.getElementById("myChart3").getContext("2d");
-
-// // create the chart using the chart canvas
-// var myChart = new Chart(ctx, {
-// type: 'line',
-// data: chartData,
-// });
+        title:{
+            text: "Wykres zanieczyszczenia powietrza od czasu",
+            display: true,
+        },
+        scales: {
+            yAxes: [{
+                scaleLabel: {
+                display: true,
+                labelString: 'Zanieczyszczenie μg/m3',
+      }
+            }]
+        }
+    }
+    });
 </script>

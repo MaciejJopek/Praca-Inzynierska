@@ -16,7 +16,7 @@ def connect_and_read(port, main_password):
                 connection_status_port = False    
         else:
             try:
-                data_operations().read_data(conn, main_password)
+                data_operations().read_data(conn, main_password, port)
             except serial.serialutil.SerialException:
                 connection_status_port = False
 
@@ -24,7 +24,7 @@ def connect_and_read(port, main_password):
 def main_loop(main_password):
     test = threading.Thread(target=connect_and_read, args=("COM3", main_password))
     test.start()
-    testowo = threading.Thread(target=connect_and_read,  args=("COM5", main_password))
+    testowo = threading.Thread(target=connect_and_read,  args=("COM4", main_password))
     testowo.start()
 
 

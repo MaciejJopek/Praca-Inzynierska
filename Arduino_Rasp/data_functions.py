@@ -11,7 +11,7 @@ class data_operations():
             send_email(main_password)
 
 
-    def read_data(self, conn, main_password):
+    def read_data(self, conn, main_password, port):
         data = conn.readline()[:-2]             
         data = data.decode('utf-8')
         if "Wilgotnosc" in data:
@@ -20,7 +20,7 @@ class data_operations():
             self.gaz_data_processing(data)
         if "zalanie" in data:
             self.czujnik_alarmowy(data, main_password)
-
+        #jezle
 
     def temp_hum_data_processing(self, data):
         wilgotnosc = data[10:12] 
