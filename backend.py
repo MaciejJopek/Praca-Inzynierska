@@ -8,7 +8,7 @@ def run_app(main_password):
     if __name__ == '__main__':
         x = threading.Thread(target=main,  args=(main_password,), daemon=True)
         x.start()
-        app.run(host="192.168.1.8")
+        app.run(host="192.168.1.10")
 
 if settings() == False:
     print("Aplikacja nie została skonfigurowana")

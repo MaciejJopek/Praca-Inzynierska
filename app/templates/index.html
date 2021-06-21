@@ -33,56 +33,20 @@
         </div>
         <div>
             <div class="row">
-                <div class="col">
-                    <div style="margin: auto; width: 50%;">
-                        <h1>Aktualny odczyt z czujników</h1>
-                        {% if status_temperatury == 0 %}
-                        <!-- <span style="display:inline-block;" class="dotbad"></span> -->
-                        <p>Czujnik temperatury, ostatni pomiar {{temperature}} stopni</p>
-                        {% endif %}
-
-                        {% if status_temperatury == 1 %}
-                        <p>Czujnik Temperatury</p>
-                        <p">Pomiar  {{temperature}} °C</p>
-                        {% endif %}
-
-                        {% if status_wilgotnosci == 0 %}
-                        <p>Czujnik wilgotności, ostatni pomiar {{watosc_wilgotnosci}}%</p>
-                        {% endif %}
-
-                        {% if status_wilgotnosci == 1 %}
-                        <p>Czujnik wilgotności podłaczony, wilgotność {{watosc_wilgotnosci}}%</p>
-                        {% endif %}
-
-                        {% if status_czystosc == 1 %}
-                        <p>Czujnik zanieczyszczenia powietrza, wartość {{wartosc_czystosc}}μg/m3</p>
-                        {% endif %}
-                        
-                        {% if status_czystosc == 0 %}
-                        <p>Czujnik zanieczyszczenia powietrza, ostatni pomiar {{wartosc_czystosc}}μg/m3</p>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="col">
-                    <div style="margin: auto; width: 50%;">
-                        <h1>Sterowanie oświetleniem</h1>
-                        <p>lampa1</p>
-                        <p>lampa1</p>
-                        <p>lampa1</p>
-                        <p>lampa1</p>
-                        <p>Włącz wyłącz wszystkie</p>
-                        <button type="button" class="btn btn-success">Success</button>
-                    </div>
-                </div>
                 <div class="col"">
                     <div style="margin: auto; width: 50%; ">
                         <h1>Status czujników</h1>
+                        {% if status == false %}
                         <div>
+                            <p>Żaden czujnik nie został jeszcze podłączony do systemu</p>
+                            <p>Prosimy podłączyć pierwszy czujnik</p>
+                        </div>
+                        {% endif %}
                         {% if status_temperatury == 0 %}
-                            <div>
+                        <div>
                             <span class="dotbad"></span>
                             <p style="display:inline-block;">Czujnik temperatury odłączony</p>
-                            </div>
+                        </div>
                         {% endif %}
 
                         {% if status_temperatury == 1 %}
@@ -96,7 +60,7 @@
                         <div>
                             <span class="dotbad"></span>
                             <p style="display:inline-block;">Czujnik wilgotności odłączony</p>
-                            </div>
+                        </div>
                         {% endif %}
 
                         
@@ -104,23 +68,73 @@
                         <div>
                             <span class="dotgood"></span>
                             <p style="display:inline-block;">Czujnik wilgotności podłaczony</p>
-                            </div>
+                        </div>
                         {% endif %}
 
                         {% if status_czystosc == 0 %}
                         <div>
                             <span class="dotbad"></span>
                             <p style="display:inline-block;">Czujnik czystosci powietrza odłączony</p>
-                            </div>
+                         </div>
                         {% endif %}
                         
                         {% if status_czystosc == 1 %}        
                         <div>
                             <span class="dotgood"></span>
                             <p style="display:inline-block;">Czujnik czystosci powietrza podłaczony</p>
-                            </div>
+                        </div>
+                        {% endif %}
+                        {% if status_ciecz == 0 %}
+                        <div>
+                            <span class="dotbad"></span>
+                            <p style="display:inline-block;">Czujnik zalania odłączony</p>
+                        </div>
                         {% endif %}
 
+                        {% if status_ciecz == 1 %}
+                        <div>
+                        <span class="dotgood"></span>
+                        <p style="display:inline-block;">Czujnik zalania podłaczony</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div style="margin: auto; width: 50%;">
+                        <h1>Aktualny odczyt z czujników</h1>
+                        {% if status_temperatury == 0 %}
+                        <!-- <span style="display:inline-block;" class="dotbad"></span> -->
+                        <p>Czujnik temperatury, ostatni pomiar {{temperature}} stopni</p>
+                        {% endif %}
+                        {% if status_temperatury == 1 %}
+                        <p>Czujnik Temperatury: {{temperature}} °C</p>
+                        {% endif %}
+
+                        {% if status_wilgotnosci == 0 %}
+                        <p>Czujnik wilgotności, ostatni pomiar {{watosc_wilgotnosci}}%</p>
+                        {% endif %}
+
+                        {% if status_wilgotnosci == 1 %}
+                        <p>Czujnik wilgotności: {{watosc_wilgotnosci}}%</p>
+                        {% endif %}
+
+                        {% if status_czystosc == 1 %}
+                        <p>Czujnik zanieczyszczenia powietrza: {{wartosc_czystosc}}μg/m3</p>
+                        {% endif %}
+                        
+                        {% if status_czystosc == 0 %}
+                        <p>Czujnik zanieczyszczenia powietrza, ostatni pomiar {{wartosc_czystosc}}μg/m3</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div style="margin: auto; width: 50%;">
+                        <h1>Sterowanie oświetleniem</h1>
+                        <p>lampa1</p>                      
+                        <form  action="/" method="post">
+                            <p><input type="submit" name="potwierdz" value="Włącz"> </p>
+                            <p><input type="submit" name="potwierdz" value="Wyłącz"> </p>
+                        </form>
                     </div>
                 </div>
             </div>
