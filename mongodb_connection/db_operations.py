@@ -25,7 +25,7 @@ def get_value_for_sensor_for_last_days(days, czujnik):
 def check_password():
     collection = create_connection_to_database()
     collection = collection.connect_to_db_password()
-    password  = collection.find({'data' : {"$gte": czas }, 'czujnik' : czujnik}, {'_id' : 0})
+    password  = collection.find()
     return False if password == None else True
 
 
