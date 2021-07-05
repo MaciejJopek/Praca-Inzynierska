@@ -35,7 +35,8 @@ def main_loop(main_password):
     testowo.start()
     testowo2 = threading.Thread(target=connect_and_read,  args=("COM5", main_password))
     testowo2.start()
-
+    testowo3 = threading.Thread(target=connect_and_read,  args=("COM6", main_password))
+    testowo3.start()
 
        
             

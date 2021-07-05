@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Monitoring</title>
+        <meta http-equiv="refresh" content="5" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
         <style>
@@ -130,11 +131,16 @@
                 <div class="col">
                     <div style="margin: auto; width: 50%;">
                         <h1>Sterowanie oświetleniem</h1>
-                        <p>lampa1</p>                      
+                        {% if led_port_status == 0 %}
+                        <p>Oświetlenie nie zostało podłączone</p>
+                        {% endif %}
+                        {% if led_port_status == 1 %}
+                        <div id='status_led'></div>
                         <form  action="/" method="post">
-                            <p><input type="submit" name="potwierdz" value="Włącz"> </p>
-                            <p><input type="submit" name="potwierdz" value="Wyłącz"> </p>
+                            <p id='wlacz'><input type="submit" name="potwierdz" value="Włącz"> </p>
+                            <p id='wylacz'><input type="submit" name="potwierdz" value="Wyłącz"> </p>
                         </form>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -273,4 +279,38 @@
         }
     }
     });
+
+
+    var status_led_elemnet = document.getElementById('status_led');
+    if (localStorage.headerHTML) status_led_elemnet.innerHTML = localStorage.headerHTML
+    var submit1 = document.getElementsByTagName('input')[0]
+    var el_wylacz = document.getElementById("status_led_html_wylacz")
+    var el_wlacz = document.getElementById("status_led_html_wlacz")
+    console.log(el_wlacz)
+    console.log(el_wylacz)
+    submit1.onclick = function() {
+        led_status =  "<p id='status_led_html_wlacz'>światło jest włączone</p>";
+        if (el_wylacz == null && el_wlacz == null){
+            status_led_elemnet.insertAdjacentHTML('afterbegin', led_status);
+            localStorage.headerHTML = status_led_elemnet.innerHTML;
+        }
+    if (el_wylacz != null){
+        document.getElementById("status_led_html_wylacz").outerHTML = "";
+        status_led_elemnet.insertAdjacentHTML('afterbegin', led_status);
+        localStorage.headerHTML = status_led_elemnet.innerHTML;
+    }
+    }
+    var submit2 = document.getElementsByTagName('input')[1]
+    submit2.onclick = function() {
+        led_status = "<p id='status_led_html_wylacz'>światło jest wyłączone</p>";
+        if (el_wlacz == null && el_wylacz == null){
+            status_led_elemnet.insertAdjacentHTML('afterbegin', led_status);
+            localStorage.headerHTML = status_led_elemnet.innerHTML;
+        }
+        if (el_wlacz != null){
+            document.getElementById("status_led_html_wlacz").outerHTML = "";
+            status_led_elemnet.insertAdjacentHTML('afterbegin', led_status);
+            localStorage.headerHTML = status_led_elemnet.innerHTML;
+        }
+    }
 </script>

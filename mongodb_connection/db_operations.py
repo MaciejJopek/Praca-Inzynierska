@@ -57,4 +57,4 @@ def get_led_port():
     records = db.find({'czujnik' : 'led'}).sort('data', -1)
     client.disconnect_from_db()
     list_of_led_ports = [x for x in records]
-    return list_of_led_ports[0]['wartosc']
+    return list_of_led_ports[0]['wartosc'] if len(list_of_led_ports) != 0 else 'None'

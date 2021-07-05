@@ -5,8 +5,15 @@ from app.read_data import read_data_from_db
 from flask import render_template
 from mongodb_connection.db_operations import *
 from mongodb_connection.connections import create_connection_to_database
+from Arduino_Rasp.connections import connect_with_arduino
 @app.route('/', methods = ['POST','GET'])
 def dashboard():
+    led_port_number = get_led_port()
+    try:
+        connect_with_arduino(led_port_number)
+        led_port_status = 1
+    except serial.serialutil.SerialException:
+        led_port_status = 0
     if request.method == 'POST':
         led_port = get_led_port()
         ser = serial.Serial(led_port, 9600, timeout=10)
@@ -57,7 +64,8 @@ def dashboard():
         status = True
     else:
         status = False
-    return render_template('index.html', temperature = wartosc_temperatury, status_temperatury = status_temperatury, status_wykresu_temoeratury = status_wykresu_temoeratury, x_temperature = x_temperature, y_temperature = y_temperature, x_wilgotnosc = x_wilgotnosc, y_wilgotnosc = y_wilgotnosc, status_wilgotnosci = status_wilgotnosci, watosc_wilgotnosci = wartosc_wilgotnosci, status_czystosc = status_czystosc, wartosc_czystosc = wartosc_czystosc, x_czystosc = x_czystosc, y_czystosc = y_czystosc, status_ciecz = status_ciecz, status = status  ) # moze te dane wrzycić do słownika
+    print(status_wykresu_temoeratury)
+    return render_template('index.html', led_port_status=led_port_status, temperature = wartosc_temperatury, status_temperatury = status_temperatury, status_wykresu_temoeratury = status_wykresu_temoeratury, x_temperature = x_temperature, y_temperature = y_temperature, x_wilgotnosc = x_wilgotnosc, y_wilgotnosc = y_wilgotnosc, status_wilgotnosci = status_wilgotnosci, watosc_wilgotnosci = wartosc_wilgotnosci, status_czystosc = status_czystosc, wartosc_czystosc = wartosc_czystosc, x_czystosc = x_czystosc, y_czystosc = y_czystosc, status_ciecz = status_ciecz, status = status  ) # moze te dane wrzycić do słownika
 
 
 
